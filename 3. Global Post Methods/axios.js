@@ -43,3 +43,32 @@ export const { registerUserStart, registerUserSuccess, registerUserFailure } = u
 
 // Export user reducer
 export default userSlice.reducer;
+
+
+
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { registerUser } from './userSlice';
+
+const UserRegistrationPage = () => {
+  const dispatch = useDispatch();
+
+  const handleRegistration = () => {
+    const newUser = {
+      username: 'johndoe',
+      password: 'mypassword',
+      email: 'johndoe@example.com',
+      // additional user data
+    };
+    dispatch(registerUser(newUser));
+  };
+
+  return (
+    <div>
+      {/* Render user registration form */}
+      <button onClick={handleRegistration}>Register User</button>
+    </div>
+  );
+};
+
+export default UserRegistrationPage;
