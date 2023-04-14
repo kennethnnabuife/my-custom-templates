@@ -87,8 +87,11 @@ const authSlice = createSlice({
         // Store the error message in the state
         state.registerError = action.payload;
         state.registerLoading = false;
+        state.registerError = action.payload
+          ? action.payload.message
+          : action.error.message;
       })
-
+    
       .addCase(loginUser.pending, (state) => {
         state.loginLoading = true;
         state.loginSuccess = false;
@@ -106,6 +109,9 @@ const authSlice = createSlice({
         // Store the error message in the state
         state.loginError = action.payload;
         state.loginLoading = false;
+        state.loginError = action.payload
+          ? action.payload.message
+          : action.error.message;
       });
   },
 });
