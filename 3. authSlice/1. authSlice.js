@@ -71,36 +71,38 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
-        state.registerLoading = true;
         state.registerSuccess = false;
         state.registerError = null;
+        state.registerLoading = true;
       })
       .addCase(registerUser.fulfilled, (state, action) => {
+        state.registerLoading = false;
+        state.registerError = null;
+        state.registerSuccess = true;
         state.token = action.payload;
         state.username = jwt.decode(state.token).username;
         state.email = jwt.decode(state.token).email;
-        state.registerSuccess = true;
-        state.registerLoading = false;
         localStorage.setItem("authToken", state.token);
       })
       .addCase(registerUser.rejected, (state, action) => {
         // Store the error message in the state
-        state.registerSuccess = false;
         state.registerLoading = false;
+        state.registerSuccess = false;
         state.registerError = action.payload;
       })
     
       .addCase(loginUser.pending, (state) => {
-        state.loginLoading = true;
         state.loginSuccess = false;
         state.loginError = null;
+        state.loginLoading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
+        state.loginLoading = false;
+        state.loginError = null;
+        state.loginSuccess = true;
         state.token = action.payload;
         state.username = jwt.decode(state.token).username;
         state.email = jwt.decode(state.token).email;
-        state.loginSuccess = true;
-        state.loginLoading = false;
         localStorage.setItem("authToken", state.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
