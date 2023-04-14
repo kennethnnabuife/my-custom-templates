@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk(
     } catch (error) {
       // Extract the error message from the server-side response and pass it as part of the action payload
       const errorMessage = error.response?.data?.message || "An error occurred";
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue({ error: errorMessage });
     }
   }
 );
@@ -32,7 +32,7 @@ export const loginUser = createAsyncThunk(
     } catch (error) {
       // Extract the error message from the server-side response and pass it as part of the action payload
       const errorMessage = error.response?.data?.message || "An error occurred";
-      return thunkAPI.rejectWithValue(errorMessage);
+      return thunkAPI.rejectWithValue({ error: errorMessage });
     }
   }
 );
@@ -88,7 +88,7 @@ const authSlice = createSlice({
         // Store the error message in the state
         state.registerLoading = false;
         state.registerSuccess = false;
-        state.registerError = action.payload;
+        state.registerError = action.payload.error;
       })
     
       .addCase(loginUser.pending, (state) => {
@@ -107,11 +107,13 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         // Store the error message in the state
-        state.loginSuccess = false;
         state.loginLoading = false;
-        state.loginError = action.payload;
+        state.loginSuccess = false;
+        state.loginError = action.payload.error;
       });
   },
 });
+
+// Export the auth slice reducer and actions
 export const { logoutUser } = authSlice.actions;
 export default authSlice.reducer;
