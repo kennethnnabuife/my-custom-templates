@@ -85,6 +85,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         // Store the error message in the state
+        state.registerSuccess = false;
         state.registerLoading = false;
         state.registerError = action.payload
           ? action.payload.message
@@ -106,6 +107,7 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.rejected, (state, action) => {
         // Store the error message in the state
+        state.loginSuccess = false;
         state.loginLoading = false;
         state.loginError = action.payload
           ? action.payload.message
