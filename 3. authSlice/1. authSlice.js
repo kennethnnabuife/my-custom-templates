@@ -103,12 +103,11 @@ const authSlice = createSlice({
         localStorage.setItem("authToken", state.token);
       })
       .addCase(loginUser.rejected, (state, action) => {
-    // Store the error message in the state
-    state.loginError = action.payload;
-    state.loginLoading = false;
-  });
+        // Store the error message in the state
+        state.loginError = action.payload;
+        state.loginLoading = false;
+      });
+  },
 });
-
-// Export the logoutUser action and the authSlice.reducer
 export const { logoutUser } = authSlice.actions;
 export default authSlice.reducer;
