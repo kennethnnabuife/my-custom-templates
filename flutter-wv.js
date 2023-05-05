@@ -21,7 +21,7 @@ app.post('/api/payments', async (req, res) => {
     },
     json: {
             tx_ref: "hooli-tx-1920bbtytty",
-            amount: "100",
+            amount: user_amount,
             currency: "NGN",
             redirect_url: "https://webhook.site/9d0b00ba-9a69-44fa-a43d-a82c33c36fdc",
             meta: {},
